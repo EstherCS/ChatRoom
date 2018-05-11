@@ -23,7 +23,7 @@ class Server:
                 # start a thread for new connection
             temp = "SYSTEM: " + buf + " in the chat room."
             self.tellOthers(connection.fileno(), temp)
-            mythread = threading.Thread(target=self.subThreadIn, args=(connection, connection.fileno(), buf))
+            mythread = threading.Thread(target=self.subThreadIn, args=(connection, connection.fileno()))
             mythread.setDaemon(True)
             mythread.start()
 
@@ -42,7 +42,7 @@ class Server:
                 except:
                     pass
 
-    def subThreadIn(self, myconnection, connNumber, name):
+    def subThreadIn(self, myconnection, connNumber):
         self.mylist.append(myconnection)
         while True:
             try:
@@ -57,20 +57,11 @@ class Server:
                 try:
                     self.mylist.remove(myconnection)
                     print(len(self.mylist))
-                    temp = "SYSTEM: " + name + " leave the chat room."
-                    self.tellOthers(connection.fileno(), temp)
                 except:
                     pass
 
                 myconnection.close()
                 return
-
-    def add(self, session):
-       # session.push('Login Success')
-        self.broadcast(session.name + ' has entered the room.n')
-        self.server.users[session.name] = session
-        self.sessions.append(session)
-
 
 def main():
     s = Server('localhost', 5550)
