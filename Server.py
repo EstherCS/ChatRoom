@@ -16,7 +16,7 @@ class Server:
     def checkConnection(self):
         connection, addr = self.sock.accept()
         print('Accept a new connection', connection.getsockname(), connection.fileno())
-        print("Online: ", len(self.mylist)+1)
+        print("Online: ", len(self.mylist)+1, "user(s)")
         try:
             buf = connection.recv(1024).decode()
             #if buf == '1':
@@ -48,7 +48,7 @@ class Server:
             try:
                 recvedMsg = myconnection.recv(1024).decode()
                 if recvedMsg:
-                    t= time.strftime("  [%H:%M :%S]",time.localtime())
+                    t= time.strftime("  [%H:%M:%S]",time.localtime())
                     self.tellOthers(connNumber, recvedMsg+t)
                 else:
                     pass
