@@ -16,7 +16,7 @@ class Server:
     def checkConnection(self):
         connection, addr = self.sock.accept()
         print('Accept a new connection', connection.getsockname(), connection.fileno())
-        print(len(self.mylist)+1)
+        print("Online: "len(self.mylist)+1)
         try:
             buf = connection.recv(1024).decode()
             #if buf == '1':
