@@ -66,7 +66,6 @@ class Server:
                 return
 
     def add(self, session):
-        '廣播新用戶進入'
        # session.push('Login Success')
         self.broadcast(session.name + ' has entered the room.n')
         self.server.users[session.name] = session
